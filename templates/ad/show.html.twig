@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ad.title}}{% endblock %}
+
+{% block body %}
+    
+    <div class="ad-title" style="background-image:url({{ad.coverImage}})">
+        <div class="container">
+            <h1>{{ad.title}}</h1>
+            <p>{{ad.introduction}}</p>
+            <p class="h5">{{ad.rooms}} chambres pour <strong>{{ad.price}}€/nuit</strong></p>
+            <a href="#" class="btn btn-warning">Réserver !</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mb-3">
+                {{ad.content|raw}}
+
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-indicators">
+
+                  {% for image in ad.images %}
+
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{loop.index0}}" class="{% if loop.first %}active{% endif %}" aria-current="true" aria-label="Slide 1"></button>
+
+                  {% endfor %}
+
+                  </div>
+                  <div class="carousel-inner">
+
+                    {% for image in ad.images %}
+
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                      <img src="{{image.url}}" class="d-block w-100" alt="...">
+                      <div class="carousel-caption d-none d-md-block">
+                        <h5>{{ad.title}}</h5>
+                        <p>{{image.caption}}</p>
+                      </div>
+                    </div>
+
+                    {% endfor %}
+
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Précédant</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Suivant</span>
+                  </button>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col-4">
+                        <img src="http://placehold.co/64x64" alt="">
+                    </div>
+                    <div class="col">
+                        <h3>John Doe</h3>
+                        <span class="badge bg-warning">
+                            3 annonces
+                        </span>
+                    </div>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti perferendis maxime sit voluptatibus tempore voluptates neque quis consequuntur debitis quasi molestiae assumenda rerum molestias, sint tempora doloremque magnam natus atque?</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti perferendis maxime sit voluptatibus tempore voluptates neque quis consequuntur debitis quasi molestiae assumenda rerum molestias, sint tempora doloremque magnam natus atque?</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti perferendis maxime sit voluptatibus tempore voluptates neque quis consequuntur debitis quasi molestiae assumenda rerum molestias, sint tempora doloremque magnam natus atque?</p>
+            </div>
+
+        </div>
+    </div>
+    
+
+{% endblock %}

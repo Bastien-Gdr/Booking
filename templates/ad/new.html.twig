@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'ad/_collections.html.twig' %}
+
+
+{% block body %}
+
+    <h1>Création d'une nouvelle annonce</h1>
+
+    <div class="container">
+        {{ form_start(form) }}
+            
+            {{ form_widget(form) }}
+
+            <button type="submit" class="btn btn-warning">Créer</button>
+
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %} 
+
