@@ -1,7 +1,16 @@
+
+
+a{text-decoration: none;}
+
 .container{margin-top: 1.2em;}
 .ad-title{background-size: cover;background-position: center center;padding: 1em;}
 .ad-title .container{margin-top: 0;}
 
 .ad-title h1, .ad-title p{color: #fff;text-shadow:3px 3px 3px rgba(0,0,0,0.5)}
 
-footer{position: fixed;bottom:0;width: 100%;color: rgb(225, 213, 213);}
+.avatar{width: 128px;height: 128px;border-radius: 50%;}
+
+.avatar-small{max-width: 32px;max-height: 32px;}
+.avatar-medium{max-width: 84px;max-height: 84px;}
+
+footer{width: 100%;color: rgb(225, 213, 213);}

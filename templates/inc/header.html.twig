@@ -1,22 +1,58 @@
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">AirB&B</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">AirB&B</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-        <div class="collapse navbar-collapse" id="navbarColor03">
-        <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-            <a class="nav-link active" href="{{path('homepage')}}">Accueil</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-            <a class="nav-link" href="#">Mon compte</a>
-            </li>
-        </ul>
-        
-        </div>
-    </div>
-    </nav>
+		<div class="collapse navbar-collapse" id="navbarColor03">
+			<ul class="navbar-nav me-auto">
+				<li class="nav-item">
+					<a class="nav-link active" href="{{path('homepage')}}">Accueil</a>
+				</li>
+			</ul>
+			<ul class="navbar-nav ml-auto">
+
+				{% if app.user %}
+
+					<div class="dropdown">
+						<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="accountDropdownLink" data-bs-toggle="dropdown" aria-expanded="false">
+							<img src="{{ app.user.avatar }}" alt="Avatar de {{ app.user.fullName }}" class="avatar avatar-small">
+							{{app.user.fullName}}
+						</a>
+
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<li>
+								<a class="dropdown-item" href="{{path('ads_create')}}">Créer une annonce</a>
+							</li>
+							<div class="dropdown-divider"></div>
+							<li>
+								<a class="dropdown-item" href="{{path('account_home')}}">Mon compte</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="{{path('account_profile')}}">Modifier mon profil</a>
+							</li>
+
+							<div class="dropdown-divider"></div>
+							<li>
+								<a class="dropdown-item" href="{{path('account_logout')}}">Déconnexion</a>
+							</li>
+						</ul>
+					</div>
+
+
+				{% else %}
+
+					<li class="nav-item">
+						<a class="nav-link" href="{{path('account_register')}}">Inscription</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{path('account_login')}}">Connexion</a>
+					</li>
+
+				{% endif %}
+			</ul>
+
+		</div>
+	</div>
+</nav>
