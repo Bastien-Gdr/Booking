@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+{% block title %}Formulaire de réservation
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		<h1 class="h3">Réservation pour l'annonce
+			<br>
+			<em>{{ ad.title }}</em>
+		</h1>
+        <h6>Vous allez réserver le bien de <strong><em>{{ ad.author.fullName }}</em></strong>. Voir plus de biens de ce <a href="{{path('user_show',{'slug':ad.author.slug})}}">loueur</a></h6>
+
+		{{form_start(form)}}
+
+    
+            <div class="row text-center justify-content-around">
+                <div class="col-4">
+                    {{ form_row(form.startDate)}}
+                </div>
+                <div class="col-4">
+                    {{ form_row(form.endDate)}}
+                </div>
+                <div class="col">
+                    <h4>Montant du séjour : <span id="amount">...</span> €</h4>
+                    <span id="days">0</span> nuit(s) à {{ ad.price}} €/nuit
+                </div>
+            </div>
+
+            <h3>Vous avez un commentaire ?</h3>
+
+            {{form_row(form.comment)}}
+
+
+		<button type="submit" class="btn btn-dark mt-3">Réserver !</button>
+        <a href="{{path('ads_single',{'slug':ad.slug})}}" class="btn btn-light mt-3 mr-3">Retour</a>
+
+		{{form_end(form)}}
+
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $(document).ready(function(){
+            
+            $('#booking_startDate,#booking_endDate').datepicker(
+                {
+                    format: 'dd/mm/yyyy',
+                    startDate: new Date(),
+                    datesDisabled: [
+                        {% for day in ad.notAvailableDays %}
+                            "{{ day.format('d/m/Y') }}",
+                        {% endfor %}
+                    ]
+                }
+            );
+
+            $('#booking_startDate,#booking_endDate').on('change',calculateAmount);
+
+        });
+
+        function calculateAmount(){
+            // Calculer l'interval entre deux dates
+
+            // 21/03/2019
+
+            // 
+
+            // 2019-03-21
+
+
+            const endDate = new Date($('#booking_endDate').val().replace(/(\d+)\/(\d+)\/(\d{4})/,'$3-$2-$1'));
+            const startDate = new Date($('#booking_startDate').val().replace(/(\d+)\/(\d+)\/(\d{4})/,'$3-$2-$1'));;
+
+            // On compare les deux pour trouver le nombre de jours
+
+            if(startDate && endDate && startDate < endDate){
+
+                const dayTime = 24*60*60*1000;
+                const interval = endDate.getTime() - startDate.getTime();
+                const days = interval / dayTime;
+
+            // On multitplie l'intervalle par le prix de la location
+
+                const amount = days * {{ ad.price }}
+
+            // Insertion des nombres dans la page
+
+            $('#days').text(days);
+
+            $('#amount').text(amount.toLocaleString('fr-FR'));
+        
+            }
+        }
+
+    </script>
+
+{% endblock %}

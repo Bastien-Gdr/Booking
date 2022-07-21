@@ -1,6 +1,9 @@
 
 
-a{text-decoration: none;}
+a{text-decoration: none;color:indianred;}
+.alert a{text-decoration: none;color:indianred;}
+a:hover{color:indianred;}
+html,body{min-height: 100%;}
 
 .container{margin-top: 1.2em;}
 .ad-title{background-size: cover;background-position: center center;padding: 1em;}
@@ -14,3 +17,5 @@ a{text-decoration: none;}
 .avatar-medium{max-width: 84px;max-height: 84px;}
 
 footer{width: 100%;color: rgb(225, 213, 213);}
+
+.datepicker table tr td.disabled,.datepicker table tr td.disabled :hover{color:orange!important;text-decoration: line-through;}
