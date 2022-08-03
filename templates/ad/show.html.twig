@@ -1,89 +1,142 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ad.title}}{% endblock %}
+{% block title %}
+	{{ad.title}}
+{% endblock %}
 
 {% block body %}
-    
-    <div class="ad-title" style="background-image:url({{ad.coverImage}})">
-        <div class="container">
-            <h1>{{ad.title}}</h1>
-            <p>{{ad.introduction}}</p>
-            <p class="h5">{{ad.rooms}} chambres pour <strong>{{ad.price}}€/nuit</strong></p>
-            <a href="{{path('booking_create',{'slug':ad.slug})}}" class="btn btn-warning">Réserver !</a>
 
-            {% if app.user and app.user == ad.author %}
+	<div class="ad-title" style="background-image:url({{ad.coverImage}})">
+		<div class="container">
+			<h1>{{ad.title}}</h1>
+			<p>{{ad.introduction}}</p>
+			<p class="h5">{{ad.rooms}}
+				chambres pour
+				<strong>{{ad.price}}€/nuit</strong>
+			</p>
+			<a href="{{path('booking_create',{'slug':ad.slug})}}" class="btn btn-warning">Réserver !</a>
 
-              <a href="{{path('ads_edit',{'slug':ad.slug})}}" class="btn btn-light">Modifier l'annonce</a>
-              <a href="{{path('ads_delete',{'slug':ad.slug})}}" class="btn btn-danger" onclick="return confirm(`Êtes-vous sur de vouloir supprimer cette annonce ?`)">Supprimer l'annonce</a>
+			{% if app.user and app.user == ad.author %}
 
-            {% endif %}
-        </div>
-    </div>
+				<a href="{{path('ads_edit',{'slug':ad.slug})}}" class="btn btn-light">Modifier l'annonce</a>
+				<a href="{{path('ads_delete',{'slug':ad.slug})}}" class="btn btn-danger" onclick="return confirm(`Êtes-vous sur de vouloir supprimer cette annonce ?`)">Supprimer l'annonce</a>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 mb-3">
-                {{ad.content|raw}}
+			{% endif %}
+		</div>
+	</div>
 
-                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                  <div class="carousel-indicators">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 mb-3">
+				{{ad.content|raw}}
 
-                  {% for image in ad.images %}
+				<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+					<div class="carousel-indicators">
 
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{loop.index0}}" class="{% if loop.first %}active{% endif %}" aria-current="true" aria-label="Slide 1"></button>
+						{% for image in ad.images %}
 
-                  {% endfor %}
+							<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{loop.index0}}" class="{% if loop.first %}active{% endif %}" aria-current="true" aria-label="Slide 1"></button>
 
-                  </div>
-                  <div class="carousel-inner">
+						{% endfor %}
 
-                    {% for image in ad.images %}
+					</div>
+					<div class="carousel-inner">
 
-                    <div class="carousel-item {% if loop.first %}active{% endif %}">
-                      <img src="{{image.url}}" class="d-block w-100" alt="...">
-                      <div class="carousel-caption d-none d-md-block">
-                        <h5>{{ad.title}}</h5>
-                        <p>{{image.caption}}</p>
-                      </div>
-                    </div>
+						{% for image in ad.images %}
 
-                    {% endfor %}
+							<div class="carousel-item {% if loop.first %}active{% endif %}">
+								<img src="{{image.url}}" class="d-block w-100" alt="...">
+								<div class="carousel-caption d-none d-md-block">
+									<h5>{{ad.title}}</h5>
+									<p>{{image.caption}}</p>
+								</div>
+							</div>
 
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Précédant</span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Suivant</span>
-                  </button>
+						{% endfor %}
+
+					</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Précédant</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Suivant</span>
+					</button>
+				</div>
+
+				<hr>
+
+				{% if ad.comments | length > 0 %}
+
+					<h3>Commentaires des voyageurs</h3>
+
+					<div class="alert alert-info">
+						<h6 class="alert-heading">
+							<div class="row align-items-center">
+								<div class="col-md-7">
+									Note globale des voyageurs :
+								</div>
+                <div class="col-5 text-center">
+								  {% include 'inc/rating.html.twig' with {'rating': ad.averageRatings } %} <br>
+								  <small>Cette moyenne est calculée à partir de {{ad.comments | length }} avis.</small>
                 </div>
-            </div>
-            <div class="col">
-            {% set a= ad.author %}
-                <div class="row">
-                    <div class="col-4">
-                        <a href="{{path('user_show',{'slug':a.slug})}}">
-                          <img src="{{ a.avatar }}" alt="{{ a.fullname }}" class="avatar avatar-medium">
-                        </a>
-                    </div>
-                    <div class="col">
-                      <a href="{{path('user_show',{'slug':a.slug})}}">
-                          <h3>{{ a.fullname }}</h3>
-                      </a>
-                        <span class="badge bg-warning">
-                           {{ a.ads | length }} {% if a.ads | length >1 %} annonces {% else %} annonce {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="col py-3">
-                  {{ a.introduction | raw }}
-                </div>
-            </div>
+							</div>
+						</h6>
+					</div>
 
-        </div>
-    </div>
-    
+					{% for comment in ad.comments %}
+
+						<div class="bg-dark-rounded">
+							<p>
+								<strong>{{comment.author.fullName}}</strong>
+								a dit :
+							</p>
+							<blockquote>{{comment.content}}</blockquote>
+							<p>Note donnée :
+								{% include 'inc/rating.html.twig' with {'rating': comment.rating } %}
+							</p>
+						</div>
+
+					{% endfor %}
+
+				{% else %}
+
+					<h6>Cette annonce n'a pas encore de commentaire.</h6>
+
+				{% endif %}
+
+
+			</div>
+			<div class="col">
+				{% set a= ad.author %}
+				<div class="row">
+					<div class="col-4">
+						<a href="{{path('user_show',{'slug':a.slug})}}">
+							<img src="{{ a.avatar }}" alt="{{ a.fullname }}" class="avatar avatar-medium">
+						</a>
+					</div>
+					<div class="col">
+						<a href="{{path('user_show',{'slug':a.slug})}}">
+							<h3>{{ a.fullname }}</h3>
+						</a>
+						<span class="badge bg-warning">
+							{{ a.ads | length }}
+							{% if a.ads | length >1 %}
+								annonces
+							{% else %}
+								annonce
+							{% endif %}
+						</span>
+					</div>
+				</div>
+				<div class="col py-3">
+					{{ a.introduction | raw }}
+				</div>
+			</div>
+
+		</div>
+	</div>
+
 
 {% endblock %}

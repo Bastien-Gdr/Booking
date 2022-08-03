@@ -8,6 +8,7 @@
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         <link rel="stylesheet" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/app.css">
+        <link rel="stylesheet" href="/css/admin.css">
         <script type="text/javascript" src="/js/jquery.min.js"></script>
 
         {% block stylesheets %}{% endblock %}
@@ -15,7 +16,7 @@
 
 <body>
 
-{% include 'inc/header.html.twig' %}
+{% include 'admin/inc/header.html.twig' %}
 
 {% for label,messages in app.flashes %}
 
@@ -36,7 +37,7 @@
     
     {% block body %}  {% endblock %}
 
-{% include 'inc/footer.html.twig' %}
+{% include 'admin/inc/footer.html.twig' %}
 
     {% block javascripts %}{% endblock %}
     

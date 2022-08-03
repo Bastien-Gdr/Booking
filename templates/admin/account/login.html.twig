@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Connexion administration</title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/app.css">
+        <link rel="stylesheet" href="/css/admin.css">
+	</head>
+	<body>
+        <main class="container">
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card bg-light">
+                        <div class="card-header">
+                            <h1 class="text-center">Booking</h1>
+                            <h4 class="card-title text-center"><i class="fas fa-lock m-2"></i>Connexion à l'administration</h4>
+                        </div>
+                        <div class="card-body">
+
+                        {% if hasError %}
+
+                            <div class="alert alert-warning">
+                                <p>Les informmations fournies sont erronnées</p>                                
+                            </div>
+
+                        {% endif %}
+
+                            <form action="" method="post">
+                                <div class="form-group">
+                                    <label for="username">Email</label>
+                                    <input type="email" name="_username" id="username" placeholder="Votre email" class="form-control" value="{{username}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Mot de passe</label>
+                                    <input type="password" placeholder="Votre mot de passe" name="_password" id="password" class="form-control">
+                                </div>
+                                <div class="form-group m-3 text-center">
+                                    <button type="submit" class="btn btn-secondary"><i class="fas fa-lock-open m-2"></i>Se connecter</button>
+                                    <a href="{{path('homepage')}}" class="btn btn-light">Retour</a>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        
+        </main>
+
+
+	</body>
+</html>

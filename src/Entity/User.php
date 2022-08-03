@@ -89,6 +89,9 @@ class User implements UserInterface
     #[ORM\OneToMany(mappedBy: 'booker', targetEntity: Booking::class)]
     private $bookings;
 
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Comment::class, orphanRemoval: true)]
+    private $comments;
+
     public function getFullName(){
         return "{$this->firstname} {$this->lastname}";
     }
@@ -98,6 +101,7 @@ class User implements UserInterface
         $this->ads = new ArrayCollection();
         $this->userRoles = new ArrayCollection();
         $this->bookings = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -324,6 +328,36 @@ public function removeBooking(Booking $booking): self
         // set the owning side to null (unless already changed)
         if ($booking->getBooker() === $this) {
             $booking->setBooker(null);
+        }
+    }
+
+    return $this;
+}
+
+/**
+ * @return Collection<int, Comment>
+ */
+public function getComments(): Collection
+{
+    return $this->comments;
+}
+
+public function addComment(Comment $comment): self
+{
+    if (!$this->comments->contains($comment)) {
+        $this->comments[] = $comment;
+        $comment->setAuthor($this);
+    }
+
+    return $this;
+}
+
+public function removeComment(Comment $comment): self
+{
+    if ($this->comments->removeElement($comment)) {
+        // set the owning side to null (unless already changed)
+        if ($comment->getAuthor() === $this) {
+            $comment->setAuthor(null);
         }
     }
 

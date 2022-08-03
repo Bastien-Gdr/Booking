@@ -13,9 +13,13 @@ html,body{min-height: 100%;}
 
 .avatar{width: 128px;height: 128px;border-radius: 50%;}
 
+.avatar-xs{max-width: 26px;max-height: 26px;}
 .avatar-small{max-width: 32px;max-height: 32px;}
 .avatar-medium{max-width: 84px;max-height: 84px;}
 
 footer{width: 100%;color: rgb(225, 213, 213);}
 
 .datepicker table tr td.disabled,.datepicker table tr td.disabled :hover{color:orange!important;text-decoration: line-through;}
+
+blockquote{font-style:oblique;color:grey;}
+.rating i{color:goldenrod;}
