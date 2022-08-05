@@ -5,7 +5,7 @@
 {% block body %}
 <main class="container">
     <div class="jumbotron bg-light p-3 mt-3">
-        <h1 class="display-3">{{title}}</h1>
+        <h1 class="display-3">Booking</h1>
         <p class="lead">This is a imple hero unit, a simple jumbotron-style component for calling extra</p>
         <hr class="my-4">
         <p>It uses utility classes for typographiy and spacing to space content outwithin the larger content</p>
@@ -14,128 +14,33 @@
         </p>
     </div>
 
-    <h3 class="h1 mt-5 mb-5">Offres spéciales</h3>
+    <h3 class="h1 mt-5 mb-5">Nos meilleures annonces</h3>
     <section class="row">
-        <article class="col-md-4">
-            <div class="card border-warning mb-3">
-                <h3 class="card-header h4">3 Chambres, <strong>50 €</strong>/nuit</h3>
-                <div class="card-body">
-                    <h5 class="card-title">Loft à Londres</h5>
-                </div>
-                <div class="image">
-                    <img src="https://placeimg.com/640/480/nature" alt="tech" class="img-fluid">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <div class="card-body">
-                    <a href="#" class="btn btn-primary">Plus d'infos</a>
-                </div>
-                <div class="card-footer text-muted">
-                    Pas encore noté
-                </div>
-            </div>
-        </article>
-        <article class="col-md-4">
-            <div class="card border-info mb-3">
-                <h3 class="card-header h4">5 Chambres, <strong>250 €</strong>/nuit</h3>
-                <div class="card-body">
-                    <h5 class="card-title">Maison aux Etats-Unis</h5>
-                </div>
-                <div class="image">
-                    <img src="https://placeimg.com/640/480/tech" alt="tech" class="img-fluid">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <div class="card-body">
-                    <a href="#" class="btn btn-primary">Plus d'infos</a>
-                </div>
-                <div class="card-footer text-muted">
-                    Pas encore noté
-                </div>
-            </div>
-        </article>
-        <article class="col-md-4">
-            <div class="card border-success mb-3">
-                <h3 class="card-header h4">2 Chambres, <strong>150 €</strong>/nuit</h3>
-                <div class="card-body">
-                    <h5 class="card-title">Appartement en Russie</h5>
-                </div>
-                <div class="image">
-                    <img src="https://placeimg.com/640/480/animals" alt="tech" class="img-fluid">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <div class="card-body">
-                    <a href="#" class="btn btn-primary">Plus d'infos</a>
-                </div>
-                <div class="card-footer text-muted">
-                    Pas encore noté
-                </div>
-            </div>
-        </article>
-    
+    {% for data in ads %}
+
+        {% include 'ad/_ad.html.twig' with {'ad':data.annonce} %}
+
+    {% endfor %}
     </section>
 
         <h3 class="h1 mt-5 mb-5">Nos meilleurs annonçeurs</h3>
     <section class="row">
-        <article class="col-md-3">
+    {% for data in users %}
+        <article class="col">
             <div class="card border-dark mb-3">
-                <h3 class="card-header bg-dark h4">John Doe</h3>
+                <h3 class="card-header bg-dark h4">{{data.user.fullName}}</h3>
                 <div class="card-body">
-                    <img src="https://placeimg.com/64/64/architecture" alt="avatar" class="float-start me-3">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <img src="{{data.user.avatar}}" alt="{{data.user.fullName}}" class="float-start me-3">
+                    <p class="card-text">{{data.user.introduction}}</p>
                 </div>
                 <div class="card-body">
-                    <a href="#" class="btn btn-dark bg-dark">Plus d'infos</a>
-                </div>
-
-            </div>
-        </article>
-        <article class="col-md-3">
-            <div class="card border-info mb-3">
-                <h3 class="card-header bg-info h4">Bill Ding</h3>
-                <div class="card-body">
-                    <img src="https://placeimg.com/64/64/tech" alt="avatar" class="float-start me-3">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <div class="card-body">
-                    <a href="#" class="btn btn-info bg-info">Plus d'infos</a>
+                    <a href="{{path('user_show',{'slug':data.user.slug})}}" class="btn btn-dark bg-dark">Plus d'infos</a>
                 </div>
 
             </div>
-        </article>
-        <article class="col-md-3">
-            <div class="card border-warning mb-3">
-                <h3 class="card-header bg-warning h4">James Carl</h3>
-                <div class="card-body">
-                    <img src="https://placeimg.com/64/64/animals" alt="avatar" class="float-start me-3">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <div class="card-body">
-                    <a href="#" class="btn btn-warning bg-warning">Plus d'infos</a>
-                </div>
+        </article>   
 
-            </div>
-        </article>
-        <article class="col-md-3">
-            <div class="card border-success mb-3">
-                <h3 class="card-header bg-success h4">Carl Ifornia</h3>
-                <div class="card-body">
-                    <img src="https://placeimg.com/64/64/people" alt="avatar" class="float-start me-3">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <div class="card-body">
-                    <a href="#" class="btn btn-success bg-success">Plus d'infos</a>
-                </div>
-
-            </div>
-        </article>
-
-
-        
+    {% endfor %}  
     
     </section>
 </main>
