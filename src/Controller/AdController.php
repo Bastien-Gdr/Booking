@@ -7,12 +7,10 @@ use App\Entity\Image;
 use App\Form\AnnonceType;
 use App\Repository\AdRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
+
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,7 +30,8 @@ class AdController extends AbstractController
 
         return $this->render('ad/index.html.twig', [
             'controller_name' => 'Nos annonces',
-            'ads' => $ads
+            'ads' => $ads,
+            
         ]);
     }
 
@@ -53,7 +52,7 @@ class AdController extends AbstractController
 
 
         
-        // On lance la fabrication et la ocnfiguration de notre formulaire
+        // On lance la fabrication et la configuration de notre formulaire
         $form = $this->createForm(AnnonceType::class,$ad);
 
         // Récupération des données du formulaire
